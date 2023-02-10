@@ -1,0 +1,45 @@
+{%  load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'img/' %}">
+    <title>Cat stats</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-2">
+                {% if satiety >= 40 and hapiness >= 40 %}
+                    <img src="{% static 'img/happy.jpeg' %}" style="width: 200px; height: 180px;" alt="Happy cat">
+                {% elif satiety < 40 and satiety >= 25 and hapiness < 40 and hapiness >= 25 %}
+                    <img src="{% static 'img/pleased.jpeg' %}" style="width: 200px; height: 180px;" alt="Pleased cat">
+                {% elif satiety < 25 and hapiness < 25 %}
+                    <img src="{% static 'img/sad.jpeg' %}" style="width: 200px; height: 180px;" alt="Sad cat">
+                {% endif %}
+            </div>
+            <div class="col8">
+                <h4>Кот - {{ name }}</h4>
+                <h4>Возраст - {{ age }}</h4>
+                <h4>Уровень счасть - {{ hapiness }}</h4>
+                <h4>Уровень сытости - {{ satiety }}</h4>
+            </div>
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            <select name="action">
+                <option value="game">Поиграть с котом</option>
+                <option value="feed">Покормить кота</option>
+                <option value="sleep">Уложить кота спать</option>
+            </select>
+            <p><input type="submit" value="Подтвердить"></p>
+        </form>
+    </div>
+</body>
+
+</html>
